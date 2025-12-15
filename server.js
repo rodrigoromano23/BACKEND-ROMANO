@@ -28,7 +28,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173", // puerto donde corre Vite/React
+  origin: "https://frontend-romano.onrender.com/", // puerto donde corre Vite/React
   credentials: true
 }));
 app.use(express.json({ limit: "20mb" }));

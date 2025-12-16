@@ -223,11 +223,22 @@ export const obtenerPorSeccion = async (req, res) => {
 // ============================================================
 export const obtenerInicioActual = async (req, res) => {
   try {
-    const pub1 = await Publicacion.findOne().sort("-createdAt");
-    const pub2 = await Publicaciones2.findOne().sort("-createdAt");
+    const publicacionesCanvas = await Publicacion
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(10);
 
-    res.json({ canvasActual: pub1 || null, editorActual: pub2 || null });
-  } catch {
+    const publicacionesEditor = await Publicaciones2
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(10);
+
+    res.json({
+      canvas: publicacionesCanvas,
+      editor: publicacionesEditor,
+    });
+  } catch (error) {
+    console.error("Error obteniendo inicio:", error);
     res.status(500).json({ msg: "Error obteniendo inicio" });
   }
 };
